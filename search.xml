@@ -1,6 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>看不懂的GraphQL</title>
+    <url>/2025/04/11/GraphQL/</url>
+    <content><![CDATA[Before:什么是 API ？
+Application Programming Interface – 应用程序编程接口
+1. REST（Representational State Transfer）
+特点：  
+
+基于 HTTP 协议，使用标准方法（GET&#x2F;POST&#x2F;PUT&#x2F;DELETE）。  
+无状态：每次请求包含所有必要信息，服务器&#x3D;&#x3D;不保存会话状态&#x3D;&#x3D;。  
+资源导向（URL 表示资源，如 /users/123）。  
+返回数据格式通常为 JSON&#x2F;XML。
+
+
+优点：  
+
+简单易用，兼容性强，适合公开API（如Twitter、GitHub API）。  
+可缓存（利用HTTP缓存机制）。
+
+
+缺点：  
+
+&#x3D;&#x3D;过度获取&#x2F;不足获取&#x3D;&#x3D;（Over-fetching&#x2F;Under-fetching）：客户端可能拿到多余或不足的数据。  
+多个端点（Endpoint）可能导致维护复杂。
+
+
+
+
+2. GraphQL
+特点：  
+
+由 Facebook 提出，采用 &#x3D;&#x3D;单端点&#x3D;&#x3D;（通常 /graphql）。  
+查询语言：客户端可精确指定需要的数据字段和结构。  
+返回数据格式为 JSON。
+
+
+优点：  
+
+灵活查询：避免REST的过度获取&#x2F;不足获取问题。  
+强类型系统（通过Schema定义数据类型）。  
+&#x3D;&#x3D;适合复杂前端需求（如多组件数据聚合）&#x3D;&#x3D;。
+
+
+缺点：  
+
+查询复杂度可能影响性能（需谨慎设计）。  
+缓存实现比REST更复杂。
+
+
+示例请求：  
+POST /graphql HTTP/1.1Body: &#123;   query: &quot;&#123; user(id: 123) &#123; name, email &#125; &#125;&quot; &#125;
+
+
+3. SOAP（Simple Object Access Protocol）
+特点：  
+
+基于 XML 的协议，通常通过 HTTP&#x2F;SMTP 传输。  
+严格的消息格式（Envelope&#x2F;Header&#x2F;Body）。  
+依赖 WSDL（Web Services Description Language）定义接口。
+
+
+优点：  
+
+高安全性（支持WS-Security等企业级标准）。  
+适合企业级应用（如银行、政府系统）。
+
+
+缺点：  
+
+冗余度高（XML体积大，解析慢）。  
+学习成本高，灵活性差。
+
+
+示例请求：  
+POST /soap-api HTTP/1.1Body: &lt;Envelope&gt;  &lt;Body&gt;    &lt;GetUser&gt;&lt;id&gt;123&lt;/id&gt;&lt;/GetUser&gt;  &lt;/Body&gt;&lt;/Envelope&gt;
+
+对比总结
+
+
+特性
+REST
+GraphQL
+SOAP
+
+
+
+协议
+HTTP
+HTTP
+HTTP&#x2F;SMTP
+
+
+数据格式
+JSON&#x2F;XML
+JSON
+XML
+
+
+端点
+多端点（URL路径）
+单端点（&#x2F;graphql）
+单端点（通常）
+
+
+查询灵活性
+&#x3D;&#x3D;固定响应结构&#x3D;&#x3D;
+&#x3D;&#x3D;客户端自定义查询&#x3D;&#x3D;
+固定操作（WSDL）
+
+
+性能
+依赖设计
+需优化查询
+XML解析开销大
+
+
+适用场景
+公开API、简单CRUD
+复杂前端需求
+企业级系统
+
+
+缓存
+支持良好
+需额外工具
+困难
+
+
+
+REST：适合简单、标准化的CRUD操作（如博客API）。  
+GraphQL：&#x3D;&#x3D;适合前端需求多变、需聚合数据的场景&#x3D;&#x3D;（如社交平台）。  
+SOAP：适合对安全性、事务一致性要求高的场景（如支付系统）。
+
+
+graphQL网站指北：What is the GraphQL Foundation? | GraphQL
+GraphQL是由 Facebook 在 2012 年创立的一门开源查询语言。GraphQL 作为通用的 REST 架构的替代方案而被开发出来**，它允许客户端只请求其需要的数据——不多也不少，一切在客户端的主导下**。
+现实问题在一个 RESTful 架构下，因为后端开发人员定义在各个 URL 的资源上返回的数据，而不是前端开发人员来提出数据需求，使得按需获取数据会非常困难。经常前端需要&#x3D;&#x3D;请求一个资源中所有的信息&#x3D;&#x3D;，即便只需要其中的一部分数据。这个问题被称之为过度获取（&#x3D;&#x3D;overfetching&#x3D;&#x3D;）。最恶劣的场景下，一个客户端应用不得不请求多个而不是一个资源，这通常会发起多个网络请求。这不仅会造成过度获取的问题，也会造成瀑布式的网络请求（waterfall network requests）。
+一个 GraphQL 操作可以是一个查询（query（读操作））、修改（mutation（写操作））以及订阅（subscription（持续读操作））。这些操作中每一种都只是&#x3D;&#x3D;根据 GraphQL 标准构造的一段字符串而已&#x3D;&#x3D;。一旦一个 GraphQL 操作从前端应用到达后端应用，首先会在后端解释整个 GraphQL schema，然后再为前端解析相关的数据。GraphQL 并没有要求网络层选型（通常是 HTTP），也没有要求传输数据格式（通常是 &#x3D;&#x3D;JSON&#x3D;&#x3D;），（查询的语言跟返回的语言相似度比较高，这让 GraphQL 非常容易学习跟使用。）甚至没有要求应用架构（通常是前后端分离架构）。它只是一个查询语言。
+优势1.单一数据源（Single Source of Truth）在 GraphQL 应用中存在者单一数据源：GraphQL schema。它提供了一个所有可用数据检索的源头。鉴于 GraphQL 的 schema 通常会在服务端定义，客户端可以基于 schema 读取（query）和写入（mutation）数据。因此，服务端提供了所有可用的信息，客户端&#x3D;&#x3D;只需要执行 GraphQL 查询获取部分数据，或者通过 GraphQL 修改变更部分数据&#x3D;&#x3D;。
+2.GraphQL 拥抱趋势GraphQL 适应了现在应用构建的变化趋势。你可能只有一个后端应用，但是可能会有多个依赖同一个后端应用的客户端（web 端、移动端、智能手表等等…）。因此 GraphQL 不仅能在前后端进行沟通，也能满足每一个客户端的具体要求（比如网络使用的要求、数据嵌套的要求、按需获取数据的要求），而不需要为每一个客户端定制不同的 API。
+另外一方面，在服务端，可能不止一个后端应用，而是一个微服务集群来提供各自具体的功能。这简直是 GraphQL 的完美使用场景，它将所有的功能编织汇总到一个 GraphQL schema 汇总。
+3.拼接 GraphQL Schema拼接 Schema 使得多个 schema 可以聚合成一个。什么时候你需要考虑这个？考虑一下后端的微服务架构。每个微服务处理特定域的业务逻辑和数据。因此，每个微服务都可以定义自己的GraphQL架构。之后，使用 Schema 拼接将所有 Schema 聚合到一个可以被客户端访问的 Schema 中。最终，每个微服务都可以拥有自己的 GraphQL 端点，而一个 GraphQL API网关将所有 schema 合并到一个全局 schema 中，以便使得客户端可以使用。
+4.GraphQL 自省（Introspection）GraphQL 自省允许通过 GraphQL API 检索 GraphQL schema。因为 schema 包含了包含了 GraphQL API 可以获得的所有数据信息，本身就是一份完美的自动生成的 API 文档。不仅仅是 API 的文档，也允许客户端通过mock GraphQL 的 schema 达到测试的目的，或者使用 schema 拼接的接口检索多个微服务的 schema。
+5.强类型的 GraphQLGraphQL 是一门强类型的查询语言，因为它是通过 GraphQL Schema Definition Language（SDL）书写的。因为有了强类型，它就拥有了强类型编程语言一样的好处：更不容出错、可以在编辑期验证并且支持编辑器智能补全和验证相关的集成。
+缺点1.GraphQL 查询的复杂性GraphQL 仅仅是一个查询语言。在服务端，一个查询需要解析数据，因此一个 GraphQL 相关实现常常需要执行数据库访问，但 GraphQL 其实不关心这些。还有，GraphQL 在你需要在一个查询中获取多个字段（作者、文章、评论）的时候，它对性能瓶颈没有任何帮助。无论使用 RESTful 架构还是 GraphQL，不同资源&#x2F;字段仍然需要从一个数据源去获取。
+因此当一个客户端需要一次查询很多嵌套字段时，前端开发通常不能很清楚他正在通过服务端访问不同的数据库获取过多的数据。这需要一种机制（&#x3D;&#x3D;比如最深查询深度、查询复杂度权重、避免递归、持久化查询&#x3D;&#x3D;）来制止来自客户端的（性能）昂贵的查询。
+2.查询频率限制另一个问题是频率限制，在 REST 中，可以简单的声明”一天之中，我们只允许请求这么多资源“，在一个独立的 GraphQL 操作中很难做到这一点，因为任何操作的开销都可以是廉价的或者昂贵的。这就是那些有着公共 GraphQL API 的公司提出的特定速率限制计算，通常可以归结为前面提到的最大查询深度和查询复杂度权重问题。
+3.GraphQL 缓存一个简单缓存，相比 REST，在 GraphQL 中实现会变得极其复杂。在 GraphQL 中就复杂了，因为即便它操作的是同一个实体，每个查询都各不相同。
+比如，一个查询中，你可能只会请求一个作者的名字，但是在另外一次查询中你可能也想知道他的电子邮箱地址。这就需要你有一个更加健全的机制中来确保字段级别的缓存，实现起来并不简单。
+GraphQL 的延伸，graphical &amp; graph(s)
+]]></content>
+      <categories>
+        <category>CTF</category>
+      </categories>
+      <tags>
+        <tag>working</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>关于四月</title>
     <url>/2025/04/09/about_April/</url>
     <content><![CDATA[风赶着河流
