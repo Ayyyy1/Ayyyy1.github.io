@@ -22,20 +22,20 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Before:什么是 API ？ Application Programming Interface – 应用程序编程接口 1. REST（Representational State Transfer） 特点：    基于 HTTP 协议，使用标准方法（GET&#x2F;POST&#x2F;PUT&#x2F;DELETE）。   无状态：每次请求包含所有必要信息，服务器&#x3D;&#x3D;不">
+  <meta name="description" content="Before:什么是 API ？ Application Programming Interface – 应用程序编程接口 1. REST（Representational State Transfer） 特点：   基于 HTTP 协议，使用标准方法（GET&#x2F;POST&#x2F;PUT&#x2F;DELETE）。   无状态：每次请求包含所有必要信息，服务器不保存会话状态。   资源导">
 <meta property="og:type" content="article">
 <meta property="og:title" content="看不懂的GraphQL">
 <meta property="og:url" content="http://example.com/2025/04/11/GraphQL/index.html">
 <meta property="og:site_name" content="Y&#39;s Blog">
-<meta property="og:description" content="Before:什么是 API ？ Application Programming Interface – 应用程序编程接口 1. REST（Representational State Transfer） 特点：    基于 HTTP 协议，使用标准方法（GET&#x2F;POST&#x2F;PUT&#x2F;DELETE）。   无状态：每次请求包含所有必要信息，服务器&#x3D;&#x3D;不">
+<meta property="og:description" content="Before:什么是 API ？ Application Programming Interface – 应用程序编程接口 1. REST（Representational State Transfer） 特点：   基于 HTTP 协议，使用标准方法（GET&#x2F;POST&#x2F;PUT&#x2F;DELETE）。   无状态：每次请求包含所有必要信息，服务器不保存会话状态。   资源导">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2025/04/themes/next/source/images/graphQL.gif">
+<meta property="og:image" content="http://example.com/images/graphQL.gif">
 <meta property="article:published_time" content="2025-04-10T16:28:40.000Z">
-<meta property="article:modified_time" content="2025-04-10T16:42:37.258Z">
+<meta property="article:modified_time" content="2025-04-10T16:56:44.821Z">
 <meta property="article:author" content="Ayyyy1">
 <meta property="article:tag" content="working">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2025/04/themes/next/source/images/graphQL.gif">
+<meta name="twitter:image" content="http://example.com/images/graphQL.gif">
 
 <link rel="canonical" href="http://example.com/2025/04/11/GraphQL/">
 
@@ -228,7 +228,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2025-04-11 00:28:40 / 修改时间：00:42:37" itemprop="dateCreated datePublished" datetime="2025-04-11T00:28:40+08:00">2025-04-11</time>
+              <time title="创建时间：2025-04-11 00:28:40 / 修改时间：00:56:44" itemprop="dateCreated datePublished" datetime="2025-04-11T00:28:40+08:00">2025-04-11</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -254,23 +254,20 @@
         <p>Before:什么是 API ？</p>
 <p><strong>A</strong>pplication <strong>P</strong>rogramming <strong>I</strong>nterface – 应用程序编程接口</p>
 <h4 id="1-REST（Representational-State-Transfer）"><a href="#1-REST（Representational-State-Transfer）" class="headerlink" title="1. REST（Representational State Transfer）"></a><strong>1. REST（Representational State Transfer）</strong></h4><ul>
-<li><p><strong>特点</strong>：  </p>
-<ul>
+<li><strong>特点</strong>：  <ul>
 <li>基于 <strong>HTTP 协议</strong>，使用标准方法（GET&#x2F;POST&#x2F;PUT&#x2F;DELETE）。  </li>
-<li><strong>无状态</strong>：每次请求包含所有必要信息，服务器&#x3D;&#x3D;不保存会话状态&#x3D;&#x3D;。  </li>
+<li><strong>无状态</strong>：每次请求包含所有必要信息，服务器<strong>不保存会话状态</strong>。  </li>
 <li>资源导向（URL 表示资源，如 <code>/users/123</code>）。  </li>
 <li>返回数据格式通常为 <strong>JSON&#x2F;XML</strong>。</li>
 </ul>
 </li>
-<li><p><strong>优点</strong>：  </p>
-<ul>
+<li><strong>优点</strong>：  <ul>
 <li>简单易用，兼容性强，适合公开API（如Twitter、GitHub API）。  </li>
 <li>可缓存（利用HTTP缓存机制）。</li>
 </ul>
 </li>
-<li><p><strong>缺点</strong>：  </p>
-<ul>
-<li><strong>&#x3D;&#x3D;过度获取&#x2F;不足获取&#x3D;&#x3D;</strong>（Over-fetching&#x2F;Under-fetching）：客户端可能拿到多余或不足的数据。  </li>
+<li><strong>缺点</strong>：  <ul>
+<li><strong>过度获取&#x2F;不足获取</strong>（Over-fetching&#x2F;Under-fetching）：客户端可能拿到多余或不足的数据。  </li>
 <li>多个端点（Endpoint）可能导致维护复杂。</li>
 </ul>
 </li>
@@ -279,7 +276,7 @@
 <h4 id="2-GraphQL"><a href="#2-GraphQL" class="headerlink" title="2. GraphQL"></a><strong>2. GraphQL</strong></h4><ul>
 <li><p><strong>特点</strong>：  </p>
 <ul>
-<li>由 <strong>Facebook</strong> 提出，采用 <strong>&#x3D;&#x3D;单端点&#x3D;&#x3D;</strong>（通常 <code>/graphql</code>）。  </li>
+<li>由 <strong>Facebook</strong> 提出，采用 <strong>单端点</strong>（通常 <code>/graphql</code>）。  </li>
 <li><strong>查询语言</strong>：客户端可<strong>精确指定</strong>需要的数据字段和结构。  </li>
 <li>返回数据格式为 <strong>JSON</strong>。</li>
 </ul>
@@ -288,7 +285,7 @@
 <ul>
 <li><strong>灵活查询</strong>：避免REST的过度获取&#x2F;不足获取问题。  </li>
 <li>强类型系统（通过Schema定义数据类型）。  </li>
-<li>&#x3D;&#x3D;适合复杂前端需求（如多组件数据聚合）&#x3D;&#x3D;。</li>
+<li>适合复杂前端需求（如多组件数据聚合）。</li>
 </ul>
 </li>
 <li><p><strong>缺点</strong>：  </p>
@@ -353,8 +350,8 @@
 </tr>
 <tr>
 <td><strong>查询灵活性</strong></td>
-<td>&#x3D;&#x3D;固定响应结构&#x3D;&#x3D;</td>
-<td>&#x3D;&#x3D;客户端自定义查询&#x3D;&#x3D;</td>
+<td>固定响应结构</td>
+<td>客户端自定义查询&#x3D;&#x3D;</td>
 <td>固定操作（WSDL）</td>
 </tr>
 <tr>
@@ -378,26 +375,29 @@
 </tbody></table>
 <ul>
 <li><strong>REST</strong>：适合简单、标准化的CRUD操作（如博客API）。  </li>
-<li><strong>GraphQL</strong>：&#x3D;&#x3D;适合前端需求多变、需聚合数据的场景&#x3D;&#x3D;（如社交平台）。  </li>
+<li><strong>GraphQL</strong>：适合前端需求多变、需聚合数据的场景（如社交平台）。  </li>
 <li><strong>SOAP</strong>：适合对安全性、事务一致性要求高的场景（如支付系统）。</li>
 </ul>
 <hr>
 <h1 id="graphQL"><a href="#graphQL" class="headerlink" title="graphQL"></a>graphQL</h1><p>网站指北：<a target="_blank" rel="noopener" href="https://graphql.cn/foundation/">What is the GraphQL Foundation? | GraphQL</a></p>
 <p>GraphQL是由 Facebook 在 2012 年创立的一门开源<strong>查询语言</strong>。GraphQL 作为通用的 REST 架构的替代方案而被开发出来**，它允许客户端只请求其需要的数据——不多也不少，一切在客户端的主导下**。</p>
-<h3 id="现实问题"><a href="#现实问题" class="headerlink" title="现实问题"></a>现实问题</h3><p>在一个 RESTful 架构下，因为后端开发人员定义在各个 URL 的资源上返回的数据，而不是前端开发人员来提出数据需求，使得按需获取数据会非常困难。经常前端需要&#x3D;&#x3D;请求一个资源中所有的信息&#x3D;&#x3D;，即便只需要其中的一部分数据。这个问题被称之为过度获取（&#x3D;&#x3D;overfetching&#x3D;&#x3D;）。最恶劣的场景下，一个客户端应用不得不请求多个而不是一个资源，这通常会发起多个网络请求。这不仅会造成过度获取的问题，也会造成瀑布式的网络请求（waterfall network requests）。</p>
-<p>一个 GraphQL 操作可以是一个查询（query（读操作））、修改（mutation（写操作））以及订阅（subscription（持续读操作））。这些操作中每一种都只是&#x3D;&#x3D;根据 GraphQL 标准构造的一段字符串而已&#x3D;&#x3D;。一旦一个 GraphQL 操作从前端应用到达后端应用，首先会在后端解释整个 <a target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?content_id=7793521&content_type=Article&match_order=1&q=GraphQL+schema&zhida_source=entity">GraphQL schema</a>，然后再为前端解析相关的数据。GraphQL 并没有要求网络层选型（通常是 HTTP），也没有要求传输数据格式（通常是 &#x3D;&#x3D;JSON&#x3D;&#x3D;），（查询的语言跟返回的语言相似度比较高，这让 GraphQL 非常容易学习跟使用。）甚至没有要求应用架构（通常是前后端分离架构）。它只是一个查询语言。</p>
-<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><h4 id="1-单一数据源（Single-Source-of-Truth）"><a href="#1-单一数据源（Single-Source-of-Truth）" class="headerlink" title="1.单一数据源（Single Source of Truth）"></a>1.单一数据源（Single Source of Truth）</h4><p>在 GraphQL 应用中存在者单一数据源：GraphQL schema。它提供了一个所有可用数据检索的源头。鉴于 GraphQL 的 schema 通常会在服务端定义，客户端可以基于 schema 读取（query）和写入（mutation）数据。因此，服务端提供了所有可用的信息，客户端&#x3D;&#x3D;只需要执行 GraphQL 查询获取部分数据，或者通过 GraphQL 修改变更部分数据&#x3D;&#x3D;。</p>
+<h3 id="现实问题"><a href="#现实问题" class="headerlink" title="现实问题"></a>现实问题</h3><p>在一个 RESTful 架构下，因为后端开发人员定义在各个 URL 的资源上返回的数据，而不是前端开发人员来提出数据需求，使得按需获取数据会非常困难。经常前端需要请求一个资源中所有的信息，即便只需要其中的一部分数据。这个问题被称之为<strong>过度获取（overfetching）</strong>。最恶劣的场景下，一个客户端应用不得不请求多个而不是一个资源，这通常会发起多个网络请求。这不仅会造成过度获取的问题，也会造成瀑布式的网络请求**（waterfall network requests）**。</p>
+<p>一个 GraphQL 操作可以是一个查询（query（读操作））、修改（mutation（写操作））以及订阅（subscription（持续读操作））。这些操作中每一种都只是根据 GraphQL 标准构造的一段字符串而已。</p>
+<p>一旦一个 GraphQL 操作从前端应用到达后端应用，首先会在后端解释整个 <a target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?content_id=7793521&content_type=Article&match_order=1&q=GraphQL+schema&zhida_source=entity">GraphQL schema</a>，然后再为前端解析相关的数据。GraphQL 并没有要求网络层选型（通常是 HTTP），也没有要求传输数据格式（通常是 JSON），（查询的语言跟返回的语言相似度比较高，这让 GraphQL <strong>非常容易学习跟使用</strong>。）甚至没有要求应用架构（通常是前后端分离架构），它只是一个查询语言。</p>
+<hr>
+<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><h4 id="1-单一数据源（Single-Source-of-Truth）"><a href="#1-单一数据源（Single-Source-of-Truth）" class="headerlink" title="1.单一数据源（Single Source of Truth）"></a>1.单一数据源（Single Source of Truth）</h4><p>在 GraphQL 应用中存在者单一数据源：<strong>GraphQL schema</strong>。它提供了一个所有可用数据检索的源头。鉴于 GraphQL 的 schema 通常会在服务端定义，客户端可以基于 schema 读取（query）和写入（mutation）数据。因此，服务端提供了所有可用的信息，客户端只需要执行 GraphQL 查询获取部分数据，或者通过 GraphQL 修改变更部分数据。</p>
 <h4 id="2-GraphQL-拥抱趋势"><a href="#2-GraphQL-拥抱趋势" class="headerlink" title="2.GraphQL 拥抱趋势"></a>2.GraphQL 拥抱趋势</h4><p>GraphQL 适应了现在应用构建的变化趋势。你可能只有一个后端应用，但是可能会有多个依赖同一个后端应用的客户端（web 端、移动端、智能手表等等…）。因此 GraphQL 不仅能在前后端进行沟通，也能满足每一个客户端的具体要求（比如网络使用的要求、数据嵌套的要求、按需获取数据的要求），而不需要为每一个客户端定制不同的 API。</p>
 <p>另外一方面，在服务端，可能不止一个后端应用，而是一个微服务集群来提供各自具体的功能。这简直是 GraphQL 的完美使用场景，它将所有的功能编织汇总到一个 <strong>GraphQL schema 汇总</strong>。</p>
 <h4 id="3-拼接-GraphQL-Schema"><a href="#3-拼接-GraphQL-Schema" class="headerlink" title="3.拼接 GraphQL Schema"></a>3.拼接 GraphQL Schema</h4><p>拼接 Schema 使得多个 schema 可以聚合成一个。什么时候你需要考虑这个？考虑一下后端的微服务架构。每个微服务处理特定域的业务逻辑和数据。因此，每个微服务都可以定义自己的GraphQL架构。之后，使用 Schema 拼接将所有 Schema 聚合到一个可以被客户端访问的 Schema 中。最终，每个微服务都可以拥有自己的 GraphQL 端点，而一个<a target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?content_id=7793521&content_type=Article&match_order=1&q=+GraphQL+API%E7%BD%91%E5%85%B3&zhida_source=entity"> GraphQL API网关</a>将所有 schema 合并到一个全局 schema 中，以便使得客户端可以使用。</p>
-<h4 id="4-GraphQL-自省（Introspection）"><a href="#4-GraphQL-自省（Introspection）" class="headerlink" title="4.GraphQL 自省（Introspection）"></a>4.GraphQL 自省（Introspection）</h4><p>GraphQL 自省允许通过 GraphQL API 检索 GraphQL schema。因为 schema 包含了包含了 GraphQL API 可以获得的所有数据信息，本身就是一份完美的自动生成的 API 文档。不仅仅是 API 的文档，也允许客户端通过mock GraphQL 的 schema 达到测试的目的，或者使用 schema 拼接的接口检索多个微服务的 schema。</p>
+<h4 id="4-GraphQL-自省（Introspection）"><a href="#4-GraphQL-自省（Introspection）" class="headerlink" title="4.GraphQL 自省（Introspection）"></a>4.GraphQL 自省（Introspection）</h4><p>GraphQL 自省允许通过 GraphQL API 检索 GraphQL schema。因为 schema 包含了包含了 GraphQL API 可以获得的所有数据信息，本身就是一份完美的自动生成的 API 文档。不仅仅是 API 的文档，也允许客户端通过mock GraphQL 的 schema 达到测试的目的，或者使用 schema 拼接的接口<strong>检索多个微服务</strong>的 schema。</p>
 <h4 id="5-强类型的-GraphQL"><a href="#5-强类型的-GraphQL" class="headerlink" title="5.强类型的 GraphQL"></a>5.强类型的 GraphQL</h4><p>GraphQL 是一门强类型的查询语言，因为它是通过 GraphQL Schema Definition Language（SDL）书写的。因为有了强类型，它就拥有了强类型编程语言一样的好处：更不容出错、可以在编辑期验证并且支持编辑器智能补全和验证相关的集成。</p>
+<hr>
 <h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><h4 id="1-GraphQL-查询的复杂性"><a href="#1-GraphQL-查询的复杂性" class="headerlink" title="1.GraphQL 查询的复杂性"></a>1.GraphQL 查询的复杂性</h4><p>GraphQL 仅仅是一个查询语言。在服务端，一个查询需要解析数据，因此一个 GraphQL 相关实现常常需要执行数据库访问，但 GraphQL 其实不关心这些。还有，GraphQL 在你需要在一个查询中获取多个字段（作者、文章、评论）的时候，它对性能瓶颈没有任何帮助。无论使用 RESTful 架构还是 GraphQL，不同资源&#x2F;字段仍然需要从一个数据源去获取。</p>
-<p>因此当一个客户端需要一次查询很多嵌套字段时，前端开发通常不能很清楚他正在通过服务端访问不同的数据库获取过多的数据。这需要一种机制（&#x3D;&#x3D;比如最深查询深度、查询复杂度权重、避免递归、持久化查询&#x3D;&#x3D;）来制止来自客户端的（性能）昂贵的查询。</p>
+<p>因此当一个客户端需要一次查询很多嵌套字段时，前端开发通常不能很清楚他正在通过服务端访问不同的数据库获取过多的数据。这需要一种机制（比如最深查询深度、查询复杂度权重、避免递归、持久化查询）来制止来自客户端的（性能）昂贵的查询。</p>
 <h4 id="2-查询频率限制"><a href="#2-查询频率限制" class="headerlink" title="2.查询频率限制"></a>2.查询频率限制</h4><p>另一个问题是频率限制，在 REST 中，可以简单的声明”一天之中，我们只允许请求这么多资源“，在一个独立的 GraphQL 操作中很难做到这一点，因为任何操作的开销都可以是廉价的或者昂贵的。这就是那些有着公共 GraphQL API 的公司提出的<strong>特定速率限制计算</strong>，通常可以归结为前面提到的最大查询深度和查询复杂度权重问题。</p>
 <h4 id="3-GraphQL-缓存"><a href="#3-GraphQL-缓存" class="headerlink" title="3.GraphQL 缓存"></a>3.GraphQL 缓存</h4><p>一个简单缓存，相比 REST，在 GraphQL 中实现会变得极其复杂。在 GraphQL 中就复杂了，因为即便它操作的是同一个实体，每个查询都各不相同。</p>
 <p>比如，一个查询中，你可能只会请求一个作者的名字，但是在另外一次查询中你可能也想知道他的电子邮箱地址。这就需要你有一个更加健全的机制中来确保字段级别的缓存，实现起来并不简单。</p>
-<h5 id="GraphQL-的延伸，graphical-graph-s"><a href="#GraphQL-的延伸，graphical-graph-s" class="headerlink" title="GraphQL 的延伸，graphical &amp; graph(s)"></a>GraphQL 的延伸，graphical &amp; graph(s)</h5><img src="../../themes/next/source/images/graphQL.gif" alt="graphQL" style="zoom:67%;" />
+<h5 id="GraphQL-的延伸，graphical-graph-s"><a href="#GraphQL-的延伸，graphical-graph-s" class="headerlink" title="GraphQL 的延伸，graphical &amp; graph(s)"></a>GraphQL 的延伸，graphical &amp; graph(s)</h5><p><img src="/images/graphQL.gif" alt="graphQL"></p>
 
     </div>
 
