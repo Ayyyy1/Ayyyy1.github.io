@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Y&#39;s Blog</title>
+    <link>http://example.com/</link>
+    
+    <atom:link href="http://example.com/rss2.xml" rel="self" type="application/rss+xml"/>
+    
+    <description>welcome to my channel</description>
+    <pubDate>Thu, 10 Apr 2025 16:56:44 GMT</pubDate>
+    <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>看不懂的GraphQL</title>
+      <link>http://example.com/2025/04/11/GraphQL/</link>
+      <guid>http://example.com/2025/04/11/GraphQL/</guid>
+      <pubDate>Thu, 10 Apr 2025 16:28:40 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Before:什么是 API ？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;A&lt;/strong&gt;pplication &lt;strong&gt;P&lt;/strong&gt;rogramming &lt;strong&gt;I&lt;/strong&gt;nterface – 应用程序编程接口&lt;/p&gt;
+&lt;h4 id=&quot;1-RES</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Before:什么是 API ？</p><p><strong>A</strong>pplication <strong>P</strong>rogramming <strong>I</strong>nterface – 应用程序编程接口</p><h4 id="1-REST（Representational-State-Transfer）"><a href="#1-REST（Representational-State-Transfer）" class="headerlink" title="1. REST（Representational State Transfer）"></a><strong>1. REST（Representational State Transfer）</strong></h4><ul><li><strong>特点</strong>：  <ul><li>基于 <strong>HTTP 协议</strong>，使用标准方法（GET&#x2F;POST&#x2F;PUT&#x2F;DELETE）。  </li><li><strong>无状态</strong>：每次请求包含所有必要信息，服务器<strong>不保存会话状态</strong>。  </li><li>资源导向（URL 表示资源，如 <code>/users/123</code>）。  </li><li>返回数据格式通常为 <strong>JSON&#x2F;XML</strong>。</li></ul></li><li><strong>优点</strong>：  <ul><li>简单易用，兼容性强，适合公开API（如Twitter、GitHub API）。  </li><li>可缓存（利用HTTP缓存机制）。</li></ul></li><li><strong>缺点</strong>：  <ul><li><strong>过度获取&#x2F;不足获取</strong>（Over-fetching&#x2F;Under-fetching）：客户端可能拿到多余或不足的数据。  </li><li>多个端点（Endpoint）可能导致维护复杂。</li></ul></li></ul><hr><h4 id="2-GraphQL"><a href="#2-GraphQL" class="headerlink" title="2. GraphQL"></a><strong>2. GraphQL</strong></h4><ul><li><p><strong>特点</strong>：  </p><ul><li>由 <strong>Facebook</strong> 提出，采用 <strong>单端点</strong>（通常 <code>/graphql</code>）。  </li><li><strong>查询语言</strong>：客户端可<strong>精确指定</strong>需要的数据字段和结构。  </li><li>返回数据格式为 <strong>JSON</strong>。</li></ul></li><li><p><strong>优点</strong>：  </p><ul><li><strong>灵活查询</strong>：避免REST的过度获取&#x2F;不足获取问题。  </li><li>强类型系统（通过Schema定义数据类型）。  </li><li>适合复杂前端需求（如多组件数据聚合）。</li></ul></li><li><p><strong>缺点</strong>：  </p><ul><li>查询复杂度可能影响性能（需谨慎设计）。  </li><li>缓存实现比REST更复杂。</li></ul></li><li><p><strong>示例请求</strong>：  </p><figure class="highlight graphql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST /graphql HTTP/<span class="number">1.1</span></span><br><span class="line"><span class="symbol">Body</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> </span><br><span class="line">  <span class="symbol">query</span><span class="punctuation">:</span> <span class="string">&quot;&#123; user(id: 123) &#123; name, email &#125; &#125;&quot;</span> </span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li></ul><hr><h4 id="3-SOAP（Simple-Object-Access-Protocol）"><a href="#3-SOAP（Simple-Object-Access-Protocol）" class="headerlink" title="3. SOAP（Simple Object Access Protocol）"></a><strong>3. SOAP（Simple Object Access Protocol）</strong></h4><ul><li><p><strong>特点</strong>：  </p><ul><li>基于 <strong>XML</strong> 的协议，通常通过 <strong>HTTP&#x2F;SMTP</strong> 传输。  </li><li>严格的消息格式（Envelope&#x2F;Header&#x2F;Body）。  </li><li>依赖 <strong>WSDL</strong>（Web Services Description Language）定义接口。</li></ul></li><li><p><strong>优点</strong>：  </p><ul><li>高安全性（支持WS-Security等企业级标准）。  </li><li>适合<strong>企业级应用</strong>（如银行、政府系统）。</li></ul></li><li><p><strong>缺点</strong>：  </p><ul><li>冗余度高（XML体积大，解析慢）。  </li><li>学习成本高，灵活性差。</li></ul></li><li><p><strong>示例请求</strong>：  </p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">POST /soap-api HTTP/1.1</span><br><span class="line">Body: </span><br><span class="line"><span class="tag">&lt;<span class="name">Envelope</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">Body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">GetUser</span>&gt;</span><span class="tag">&lt;<span class="name">id</span>&gt;</span>123<span class="tag">&lt;/<span class="name">id</span>&gt;</span><span class="tag">&lt;/<span class="name">GetUser</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">Body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Envelope</span>&gt;</span></span><br></pre></td></tr></table></figure></li></ul><h3 id="对比总结"><a href="#对比总结" class="headerlink" title="对比总结"></a><strong>对比总结</strong></h3><table><thead><tr><th>特性</th><th>REST</th><th>GraphQL</th><th>SOAP</th></tr></thead><tbody><tr><td><strong>协议</strong></td><td>HTTP</td><td>HTTP</td><td>HTTP&#x2F;SMTP</td></tr><tr><td><strong>数据格式</strong></td><td>JSON&#x2F;XML</td><td>JSON</td><td>XML</td></tr><tr><td><strong>端点</strong></td><td>多端点（URL路径）</td><td>单端点（&#x2F;graphql）</td><td>单端点（通常）</td></tr><tr><td><strong>查询灵活性</strong></td><td>固定响应结构</td><td>客户端自定义查询&#x3D;&#x3D;</td><td>固定操作（WSDL）</td></tr><tr><td><strong>性能</strong></td><td>依赖设计</td><td>需优化查询</td><td>XML解析开销大</td></tr><tr><td><strong>适用场景</strong></td><td>公开API、简单CRUD</td><td>复杂前端需求</td><td>企业级系统</td></tr><tr><td><strong>缓存</strong></td><td>支持良好</td><td>需额外工具</td><td>困难</td></tr></tbody></table><ul><li><strong>REST</strong>：适合简单、标准化的CRUD操作（如博客API）。  </li><li><strong>GraphQL</strong>：适合前端需求多变、需聚合数据的场景（如社交平台）。  </li><li><strong>SOAP</strong>：适合对安全性、事务一致性要求高的场景（如支付系统）。</li></ul><hr><h1 id="graphQL"><a href="#graphQL" class="headerlink" title="graphQL"></a>graphQL</h1><p>网站指北：<a href="https://graphql.cn/foundation/">What is the GraphQL Foundation? | GraphQL</a></p><p>GraphQL是由 Facebook 在 2012 年创立的一门开源<strong>查询语言</strong>。GraphQL 作为通用的 REST 架构的替代方案而被开发出来**，它允许客户端只请求其需要的数据——不多也不少，一切在客户端的主导下**。</p><h3 id="现实问题"><a href="#现实问题" class="headerlink" title="现实问题"></a>现实问题</h3><p>在一个 RESTful 架构下，因为后端开发人员定义在各个 URL 的资源上返回的数据，而不是前端开发人员来提出数据需求，使得按需获取数据会非常困难。经常前端需要请求一个资源中所有的信息，即便只需要其中的一部分数据。这个问题被称之为<strong>过度获取（overfetching）</strong>。最恶劣的场景下，一个客户端应用不得不请求多个而不是一个资源，这通常会发起多个网络请求。这不仅会造成过度获取的问题，也会造成瀑布式的网络请求**（waterfall network requests）**。</p><p>一个 GraphQL 操作可以是一个查询（query（读操作））、修改（mutation（写操作））以及订阅（subscription（持续读操作））。这些操作中每一种都只是根据 GraphQL 标准构造的一段字符串而已。</p><p>一旦一个 GraphQL 操作从前端应用到达后端应用，首先会在后端解释整个 <a href="https://zhida.zhihu.com/search?content_id=7793521&content_type=Article&match_order=1&q=GraphQL+schema&zhida_source=entity">GraphQL schema</a>，然后再为前端解析相关的数据。GraphQL 并没有要求网络层选型（通常是 HTTP），也没有要求传输数据格式（通常是 JSON），（查询的语言跟返回的语言相似度比较高，这让 GraphQL <strong>非常容易学习跟使用</strong>。）甚至没有要求应用架构（通常是前后端分离架构），它只是一个查询语言。</p><hr><h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><h4 id="1-单一数据源（Single-Source-of-Truth）"><a href="#1-单一数据源（Single-Source-of-Truth）" class="headerlink" title="1.单一数据源（Single Source of Truth）"></a>1.单一数据源（Single Source of Truth）</h4><p>在 GraphQL 应用中存在者单一数据源：<strong>GraphQL schema</strong>。它提供了一个所有可用数据检索的源头。鉴于 GraphQL 的 schema 通常会在服务端定义，客户端可以基于 schema 读取（query）和写入（mutation）数据。因此，服务端提供了所有可用的信息，客户端只需要执行 GraphQL 查询获取部分数据，或者通过 GraphQL 修改变更部分数据。</p><h4 id="2-GraphQL-拥抱趋势"><a href="#2-GraphQL-拥抱趋势" class="headerlink" title="2.GraphQL 拥抱趋势"></a>2.GraphQL 拥抱趋势</h4><p>GraphQL 适应了现在应用构建的变化趋势。你可能只有一个后端应用，但是可能会有多个依赖同一个后端应用的客户端（web 端、移动端、智能手表等等…）。因此 GraphQL 不仅能在前后端进行沟通，也能满足每一个客户端的具体要求（比如网络使用的要求、数据嵌套的要求、按需获取数据的要求），而不需要为每一个客户端定制不同的 API。</p><p>另外一方面，在服务端，可能不止一个后端应用，而是一个微服务集群来提供各自具体的功能。这简直是 GraphQL 的完美使用场景，它将所有的功能编织汇总到一个 <strong>GraphQL schema 汇总</strong>。</p><h4 id="3-拼接-GraphQL-Schema"><a href="#3-拼接-GraphQL-Schema" class="headerlink" title="3.拼接 GraphQL Schema"></a>3.拼接 GraphQL Schema</h4><p>拼接 Schema 使得多个 schema 可以聚合成一个。什么时候你需要考虑这个？考虑一下后端的微服务架构。每个微服务处理特定域的业务逻辑和数据。因此，每个微服务都可以定义自己的GraphQL架构。之后，使用 Schema 拼接将所有 Schema 聚合到一个可以被客户端访问的 Schema 中。最终，每个微服务都可以拥有自己的 GraphQL 端点，而一个<a href="https://zhida.zhihu.com/search?content_id=7793521&content_type=Article&match_order=1&q=+GraphQL+API%E7%BD%91%E5%85%B3&zhida_source=entity"> GraphQL API网关</a>将所有 schema 合并到一个全局 schema 中，以便使得客户端可以使用。</p><h4 id="4-GraphQL-自省（Introspection）"><a href="#4-GraphQL-自省（Introspection）" class="headerlink" title="4.GraphQL 自省（Introspection）"></a>4.GraphQL 自省（Introspection）</h4><p>GraphQL 自省允许通过 GraphQL API 检索 GraphQL schema。因为 schema 包含了包含了 GraphQL API 可以获得的所有数据信息，本身就是一份完美的自动生成的 API 文档。不仅仅是 API 的文档，也允许客户端通过mock GraphQL 的 schema 达到测试的目的，或者使用 schema 拼接的接口<strong>检索多个微服务</strong>的 schema。</p><h4 id="5-强类型的-GraphQL"><a href="#5-强类型的-GraphQL" class="headerlink" title="5.强类型的 GraphQL"></a>5.强类型的 GraphQL</h4><p>GraphQL 是一门强类型的查询语言，因为它是通过 GraphQL Schema Definition Language（SDL）书写的。因为有了强类型，它就拥有了强类型编程语言一样的好处：更不容出错、可以在编辑期验证并且支持编辑器智能补全和验证相关的集成。</p><hr><h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><h4 id="1-GraphQL-查询的复杂性"><a href="#1-GraphQL-查询的复杂性" class="headerlink" title="1.GraphQL 查询的复杂性"></a>1.GraphQL 查询的复杂性</h4><p>GraphQL 仅仅是一个查询语言。在服务端，一个查询需要解析数据，因此一个 GraphQL 相关实现常常需要执行数据库访问，但 GraphQL 其实不关心这些。还有，GraphQL 在你需要在一个查询中获取多个字段（作者、文章、评论）的时候，它对性能瓶颈没有任何帮助。无论使用 RESTful 架构还是 GraphQL，不同资源&#x2F;字段仍然需要从一个数据源去获取。</p><p>因此当一个客户端需要一次查询很多嵌套字段时，前端开发通常不能很清楚他正在通过服务端访问不同的数据库获取过多的数据。这需要一种机制（比如最深查询深度、查询复杂度权重、避免递归、持久化查询）来制止来自客户端的（性能）昂贵的查询。</p><h4 id="2-查询频率限制"><a href="#2-查询频率限制" class="headerlink" title="2.查询频率限制"></a>2.查询频率限制</h4><p>另一个问题是频率限制，在 REST 中，可以简单的声明”一天之中，我们只允许请求这么多资源“，在一个独立的 GraphQL 操作中很难做到这一点，因为任何操作的开销都可以是廉价的或者昂贵的。这就是那些有着公共 GraphQL API 的公司提出的<strong>特定速率限制计算</strong>，通常可以归结为前面提到的最大查询深度和查询复杂度权重问题。</p><h4 id="3-GraphQL-缓存"><a href="#3-GraphQL-缓存" class="headerlink" title="3.GraphQL 缓存"></a>3.GraphQL 缓存</h4><p>一个简单缓存，相比 REST，在 GraphQL 中实现会变得极其复杂。在 GraphQL 中就复杂了，因为即便它操作的是同一个实体，每个查询都各不相同。</p><p>比如，一个查询中，你可能只会请求一个作者的名字，但是在另外一次查询中你可能也想知道他的电子邮箱地址。这就需要你有一个更加健全的机制中来确保字段级别的缓存，实现起来并不简单。</p><h5 id="GraphQL-的延伸，graphical-graph-s"><a href="#GraphQL-的延伸，graphical-graph-s" class="headerlink" title="GraphQL 的延伸，graphical &amp; graph(s)"></a>GraphQL 的延伸，graphical &amp; graph(s)</h5><p><img src="/images/graphQL.gif" alt="graphQL"></p>]]></content:encoded>
+      
+      
+      <category domain="http://example.com/categories/CTF/">CTF</category>
+      
+      
+      <category domain="http://example.com/tags/working/">working</category>
+      
+      
+      <comments>http://example.com/2025/04/11/GraphQL/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>关于四月</title>
+      <link>http://example.com/2025/04/09/about_April/</link>
+      <guid>http://example.com/2025/04/09/about_April/</guid>
+      <pubDate>Tue, 08 Apr 2025 16:00:00 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;风赶着河流&lt;/p&gt;
+&lt;p&gt;鸟争着清晨&lt;/p&gt;
+&lt;p&gt;花赶着开&lt;/p&gt;
+&lt;p&gt;三月很忙&lt;/p&gt;
+&lt;p&gt;十万人间&lt;/p&gt;
+&lt;p&gt;赶出一个春天&lt;/p&gt;
+&lt;p&gt;于是&lt;/p&gt;
+&lt;p&gt;四月是异常拥挤的新绿&lt;/p&gt;
+&lt;p&gt;晚安，祝大家都有一夜好梦​​&lt;/p&gt;
+</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>风赶着河流</p><p>鸟争着清晨</p><p>花赶着开</p><p>三月很忙</p><p>十万人间</p><p>赶出一个春天</p><p>于是</p><p>四月是异常拥挤的新绿</p><p>晚安，祝大家都有一夜好梦​​</p>]]></content:encoded>
+      
+      
+      <category domain="http://example.com/categories/life/">life</category>
+      
+      
+      <category domain="http://example.com/tags/Y-daily/">Y_daily</category>
+      
+      
+      <comments>http://example.com/2025/04/09/about_April/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Hello World</title>
+      <link>http://example.com/2025/04/04/hello-world/</link>
+      <guid>http://example.com/2025/04/04/hello-world/</guid>
+      <pubDate>Fri, 04 Apr 2025 04:59:22 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>http://example.com/2025/04/04/hello-world/#disqus_thread</comments>
+      
+    </item>
+    
+  </channel>
+</rss>
