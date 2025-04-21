@@ -9,8 +9,36 @@
     <atom:link href="http://example.com/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>welcome to my channel</description>
-    <pubDate>Thu, 10 Apr 2025 16:56:44 GMT</pubDate>
+    <pubDate>Mon, 21 Apr 2025 17:46:43 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>mathorcup复盘</title>
+      <link>http://example.com/2025/04/22/mathorcup/</link>
+      <guid>http://example.com/2025/04/22/mathorcup/</guid>
+      <pubDate>Mon, 21 Apr 2025 16:35:50 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h2 id=&quot;一、论文格式&quot;&gt;&lt;a href=&quot;#一、论文格式&quot; class=&quot;headerlink&quot; title=&quot;一、论文格式&quot;&gt;&lt;/a&gt;一、论文格式&lt;/h2&gt;&lt;p&gt;1.公式全部用符号表示，下标不要过长。&lt;/p&gt;
+&lt;p&gt;2.图片上的字尽量用中文&lt;/p&gt;
+&lt;p&gt;3.问题背景等</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<h2 id="一、论文格式"><a href="#一、论文格式" class="headerlink" title="一、论文格式"></a>一、论文格式</h2><p>1.公式全部用符号表示，下标不要过长。</p><p>2.图片上的字尽量用中文</p><p>3.问题背景等不能照搬原文，可能导致查重率高</p><p>4.代码标签</p><p>5.可视化部分的排版</p><p>6.摘要要囊括问题的结果</p><h2 id="二、问题分析"><a href="#二、问题分析" class="headerlink" title="二、问题分析"></a>二、问题分析</h2><p>1.mathorcup第三题主要是评价模型跟机器学习。感觉机器学习作为比较新的领域在各个比赛中都有所体现。甚至A题直接上了视觉相关的，对完全没接触过的是非常吃亏的。后续还是需要多了解一下这一方面的内容跟知识吧。</p><p>2.可视化的部分最好在求解过程中做好规划，并保留好每一轮的数据。如果有问题，可以及时查看跟修正。</p><p>3.需要修改的部分，需要在飞书中显著标注出来，以免忘记，并在群里详细说明。当然当场解决是最好的啦。</p><p>4.强调一些特殊情况或者处理，发现有问题及时提出来。采用合理方法解决，很可能会成为加分项。</p><h2 id="三、回顾"><a href="#三、回顾" class="headerlink" title="三、回顾"></a>三、回顾</h2><p><img src="/bang.jpg" alt="bang"></p><p>前期做的时候真的有点棘手，毕竟是第一次正是比赛。感觉考验还是蛮大的，当然也对队伍的磨合有很多正向的作用。每天打卡上班，屁股坐烂，但还是边骂边做，甚至还有板书等等。</p><p>哎太晚了，脑子转不动了，就说到这吧，晚安。</p><h2 id="四、致谢"><a href="#四、致谢" class="headerlink" title="四、致谢"></a>四、致谢</h2><p>4&#x2F;21的凌晨，终于舒舒服服地洗完澡，洗完衣服，收拾完。干干净净，清清爽爽的做着最后的收尾工作，等待迎来第一场数模比赛的圆满落幕。</p><p>从题目都搞不懂到见证论文一点点成形，被完善，养成系的快乐终于懂了。突然感觉很幸福，一个属于我们的成果（虽然可能还是一坨）终于要出来了欸。</p><p>感谢学校，让我舒服地洗了个热水澡，不是糟糕的冷热交替；感谢学长的宝贵指导，让我们的论文变得金玉其表，但是不妨碍是败絮其中哈哈哈哈。</p><p>感谢小孙（美工达人），能早起帮我们占教室，画了超级漂亮的图；感谢llc同学，被我征用了很久的充电器，终于不用背着板砖去上班；感谢我的队友们，让我的睡觉全勤。感谢妈妈的经费补贴，让我每天晚上都有夜宵吃（九点的晚饭）。感谢我的电脑，尽管呼噜噜个不停，但还是没有报废。感谢LadyGaGa拯救了我的耳朵，科切拉真的太绝了。</p><p>好了好了，我要去见证小破论文的出生了，再见。</p><p>To making it count.</p><p><img src="/count.jpg" alt="count"></p>]]></content:encoded>
+      
+      
+      <category domain="http://example.com/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/">数学建模</category>
+      
+      
+      <category domain="http://example.com/tags/working/">working</category>
+      
+      
+      <comments>http://example.com/2025/04/22/mathorcup/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>看不懂的GraphQL</title>
