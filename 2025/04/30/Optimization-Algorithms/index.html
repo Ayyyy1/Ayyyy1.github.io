@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="优化算法机器学习中的优化算法是训练模型的核心工具，不同算法在收敛速度、内存效率、超参数敏感性等方面各有优势。  1. 梯度下降法（Gradient Descent, GD）原理：沿负梯度方向更新参数： $\theta_{t+1} &#x3D; \theta_t - \eta \nabla_\theta J(\theta)$ 优势  理论成熟：适用于凸优化问题，保证全局收敛。 简单易实现。  缺点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Optimization Algorithms">
+<meta property="og:url" content="http://example.com/2025/04/30/Optimization-Algorithms/index.html">
+<meta property="og:site_name" content="Y&#39;s Blog">
+<meta property="og:description" content="优化算法机器学习中的优化算法是训练模型的核心工具，不同算法在收敛速度、内存效率、超参数敏感性等方面各有优势。  1. 梯度下降法（Gradient Descent, GD）原理：沿负梯度方向更新参数： $\theta_{t+1} &#x3D; \theta_t - \eta \nabla_\theta J(\theta)$ 优势  理论成熟：适用于凸优化问题，保证全局收敛。 简单易实现。  缺点">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-04-30T09:31:45.000Z">
+<meta property="article:modified_time" content="2025-04-30T09:35:31.592Z">
+<meta property="article:author" content="Ayyyy1">
+<meta property="article:tag" content="working">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2025/04/30/Optimization-Algorithms/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Optimization Algorithms | Y's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/rss2.xml" title="Y's Blog" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Y's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/30/Optimization-Algorithms/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Ayyyy1">
+      <meta itemprop="description" content="welcome to my channel">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Y's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Optimization Algorithms
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-04-30 17:31:45 / 修改时间：17:35:31" itemprop="dateCreated datePublished" datetime="2025-04-30T17:31:45+08:00">2025-04-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/coooode/" itemprop="url" rel="index"><span itemprop="name">coooode</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/coooode/machine-learning/" itemprop="url" rel="index"><span itemprop="name">machine learning</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="优化算法"><a href="#优化算法" class="headerlink" title="优化算法"></a>优化算法</h1><p>机器学习中的优化算法是训练模型的核心工具，不同算法在<strong>收敛速度</strong>、<strong>内存效率</strong>、<strong>超参数敏感性</strong>等方面各有优势。</p>
+<hr>
+<h3 id="1-梯度下降法（Gradient-Descent-GD）"><a href="#1-梯度下降法（Gradient-Descent-GD）" class="headerlink" title="1. 梯度下降法（Gradient Descent, GD）"></a><strong>1. 梯度下降法（Gradient Descent, GD）</strong></h3><p><strong>原理</strong>：沿负梯度方向更新参数： $\theta_{t+1} &#x3D; \theta_t - \eta \nabla_\theta J(\theta)$</p>
+<p>优势</p>
+<ul>
+<li><strong>理论成熟</strong>：适用于凸优化问题，保证全局收敛。</li>
+<li><strong>简单易实现</strong>。</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>计算所有样本的梯度，<strong>内存消耗大</strong>（不适合大规模数据）。</li>
+<li>容易陷入局部最优（非凸问题）。</li>
+</ul>
+<hr>
+<h3 id="2-随机梯度下降（Stochastic-Gradient-Descent-SGD）"><a href="#2-随机梯度下降（Stochastic-Gradient-Descent-SGD）" class="headerlink" title="2. 随机梯度下降（Stochastic Gradient Descent, SGD）"></a><strong>2. 随机梯度下降（Stochastic Gradient Descent, SGD）</strong></h3><p><strong>原理</strong>：每次随机选一个样本计算梯度。</p>
+<p>优势</p>
+<ul>
+<li><strong>内存高效</strong>：适合大规模数据。</li>
+<li><strong>逃离局部最优</strong>：随机性可能帮助跳出局部极小值。</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li><strong>高方差</strong>：更新方向波动大，收敛不稳定。</li>
+<li>需手动调整学习率（如学习率衰减）。</li>
+</ul>
+<p><strong>改进版</strong>：Mini-batch SGD：折中方案，用小批量样本计算梯度（常用）。</p>
+<hr>
+<h3 id="3-动量法（Momentum）"><a href="#3-动量法（Momentum）" class="headerlink" title="3. 动量法（Momentum）"></a><strong>3. 动量法（Momentum）</strong></h3><p><strong>原理</strong>：引入动量项积累历史梯度： $v_t &#x3D; \gamma v_{t-1} + \eta \nabla_\theta J(\theta) \ \theta_{t+1} &#x3D; \theta_t - v_t$</p>
+<p>优势</p>
+<ul>
+<li><strong>加速收敛</strong>：在梯度方向一致的维度上累积速度。</li>
+<li>减少震荡，尤其适合高曲率或稀疏梯度问题。</li>
+</ul>
+<hr>
+<h3 id="4-Nesterov-加速梯度（NAG）"><a href="#4-Nesterov-加速梯度（NAG）" class="headerlink" title="4. Nesterov 加速梯度（NAG）"></a><strong>4. Nesterov 加速梯度（NAG）</strong></h3><p><strong>原理</strong>：动量法的改进，先按动量方向预测下一步梯度： $v_t &#x3D; \gamma v_{t-1} + \eta \nabla_\theta J(\theta - \gamma v_{t-1}) \ \theta_{t+1} &#x3D; \theta_t - v_t$</p>
+<p>优势:比Momentum<strong>更精准</strong>地调整方向，减少振荡。</p>
+<hr>
+<h3 id="5-自适应学习率算法"><a href="#5-自适应学习率算法" class="headerlink" title="5. 自适应学习率算法"></a><strong>5. 自适应学习率算法</strong></h3><h4 id="1-AdaGrad"><a href="#1-AdaGrad" class="headerlink" title="(1) AdaGrad"></a><strong>(1) AdaGrad</strong></h4><p><strong>原理</strong>：为每个参数自适应调整学习率：$\theta_{t+1} &#x3D; \theta_t - \frac{\eta}{\sqrt{G_t + \epsilon}} \nabla_\theta J(\theta)$ （GtG_tGt 为历史梯度平方和）</p>
+<p>优势:适合<strong>稀疏数据</strong>（如NLP），对低频特征更新更大。</p>
+<p>缺点:学习率单调下降，可能过早停止学习。</p>
+<h4 id="2-RMSProp"><a href="#2-RMSProp" class="headerlink" title="(2) RMSProp"></a><strong>(2) RMSProp</strong></h4><p><strong>原理</strong>：引入衰减系数（$\beta$）平滑：$G_t &#x3D; \beta G_{t-1} + (1-\beta) \nabla_\theta J(\theta)^2$</p>
+<p>优势:解决AdaGrad学习率消失问题，适合非凸优化。</p>
+<h4 id="3-Adam（Adaptive-Moment-Estimation）"><a href="#3-Adam（Adaptive-Moment-Estimation）" class="headerlink" title="(3) Adam（Adaptive Moment Estimation）"></a><strong>(3) Adam（Adaptive Moment Estimation）</strong></h4><p><strong>原理</strong>：结合动量和自适应学习率： $m_t &#x3D; \beta_1 m_{t-1} + (1-\beta_1) \nabla_\theta J(\theta) \quad \text{(一阶矩)} \ v_t &#x3D; \beta_2 v_{t-1} + (1-\beta_2) \nabla_\theta J(\theta)^2 \quad \text{(二阶矩)} \ \theta_{t+1} &#x3D; \theta_t - \frac{\eta \cdot m_t}{\sqrt{v_t} + \epsilon}$</p>
+<p>优势</p>
+<ul>
+<li><strong>默认首选</strong>：适应不同数据分布，收敛快且稳定。</li>
+<li>对超参数（如初始学习率）鲁棒性强。</li>
+</ul>
+<h4 id="4-AdaDelta"><a href="#4-AdaDelta" class="headerlink" title="(4) AdaDelta"></a><strong>(4) AdaDelta</strong></h4><p><strong>原理</strong>：无需设置初始学习率，动态调整步长。</p>
+<p>优势:对学习率不敏感，适合调参困难场景。</p>
+<hr>
+<h3 id="6-二阶优化算法"><a href="#6-二阶优化算法" class="headerlink" title="6. 二阶优化算法"></a><strong>6. 二阶优化算法</strong></h3><h4 id="1-牛顿法（Newton’s-Method）"><a href="#1-牛顿法（Newton’s-Method）" class="headerlink" title="(1) 牛顿法（Newton’s Method）"></a><strong>(1) 牛顿法（Newton’s Method）</strong></h4><p><strong>原理</strong>：使用Hessian矩阵（二阶导数）更新参数： $\theta_{t+1} &#x3D; \theta_t - H^{-1} \nabla_\theta J(\theta)$</p>
+<p>优势：收敛速度<strong>超线性</strong>（远快于一阶方法）。</p>
+<p>缺点：计算Hessian矩阵及其逆的复杂度高（$O(n^3)$）。</p>
+<h4 id="2-拟牛顿法（BFGS-L-BFGS）"><a href="#2-拟牛顿法（BFGS-L-BFGS）" class="headerlink" title="(2) 拟牛顿法（BFGS&#x2F;L-BFGS）"></a><strong>(2) 拟牛顿法（BFGS&#x2F;L-BFGS）</strong></h4><p><strong>原理</strong>：用近似矩阵替代Hessian矩阵。</p>
+<p>优势：降低计算量（L-BFGS适合中等规模数据）。</p>
+<p>缺点：仍需要存储近似矩阵，内存消耗较大。</p>
+<hr>
+<h3 id="对比总结"><a href="#对比总结" class="headerlink" title="对比总结"></a><strong>对比总结</strong></h3><table>
+<thead>
+<tr>
+<th><strong>算法</strong></th>
+<th><strong>优势</strong></th>
+<th><strong>适用场景</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>SGD</strong></td>
+<td>内存高效，简单</td>
+<td>大规模数据，简单模型</td>
+</tr>
+<tr>
+<td><strong>Momentum</strong></td>
+<td>加速收敛，减少振荡</td>
+<td>高维稀疏梯度问题</td>
+</tr>
+<tr>
+<td><strong>Adam</strong></td>
+<td>自适应学习率，鲁棒性强</td>
+<td>深度学习默认选择</td>
+</tr>
+<tr>
+<td><strong>AdaGrad</strong></td>
+<td>适合稀疏特征</td>
+<td>NLP、推荐系统</td>
+</tr>
+<tr>
+<td><strong>L-BFGS</strong></td>
+<td>二阶收敛快</td>
+<td>中小规模凸优化问题</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="如何选择？"><a href="#如何选择？" class="headerlink" title="如何选择？"></a><strong>如何选择？</strong></h3><ol>
+<li><strong>深度学习</strong>：优先尝试 <strong>Adam</strong> 或 <strong>AdamW</strong>（带权重衰减的Adam）。</li>
+<li><strong>稀疏数据</strong>：<strong>AdaGrad</strong> 或 <strong>RMSProp</strong>。</li>
+<li><strong>资源受限</strong>：<strong>SGD + Momentum</strong>（需调学习率）。</li>
+<li><strong>理论最优解</strong>：<strong>L-BFGS</strong>（若问题规模允许）。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+ 
+   <div>
+     <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------结束啦<i class="fa fa-paw"></i>感谢阅读-------------</div>
+    
+</div>
+   </div>
+ 
+        <div class="reward-container">
+  <div>Coffee = Code Fuel. Want to donate a cup？</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Ayyyy1 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Ayyyy1 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/working/" rel="tag"># working</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/04/27/The-Vegetarian/" rel="prev" title="素食者">
+      <i class="fa fa-chevron-left"></i> 素食者
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">优化算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%EF%BC%88Gradient-Descent-GD%EF%BC%89"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. 梯度下降法（Gradient Descent, GD）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%EF%BC%88Stochastic-Gradient-Descent-SGD%EF%BC%89"><span class="nav-number">1.0.2.</span> <span class="nav-text">2. 随机梯度下降（Stochastic Gradient Descent, SGD）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%8A%A8%E9%87%8F%E6%B3%95%EF%BC%88Momentum%EF%BC%89"><span class="nav-number">1.0.3.</span> <span class="nav-text">3. 动量法（Momentum）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Nesterov-%E5%8A%A0%E9%80%9F%E6%A2%AF%E5%BA%A6%EF%BC%88NAG%EF%BC%89"><span class="nav-number">1.0.4.</span> <span class="nav-text">4. Nesterov 加速梯度（NAG）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E8%87%AA%E9%80%82%E5%BA%94%E5%AD%A6%E4%B9%A0%E7%8E%87%E7%AE%97%E6%B3%95"><span class="nav-number">1.0.5.</span> <span class="nav-text">5. 自适应学习率算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-AdaGrad"><span class="nav-number">1.0.5.1.</span> <span class="nav-text">(1) AdaGrad</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-RMSProp"><span class="nav-number">1.0.5.2.</span> <span class="nav-text">(2) RMSProp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Adam%EF%BC%88Adaptive-Moment-Estimation%EF%BC%89"><span class="nav-number">1.0.5.3.</span> <span class="nav-text">(3) Adam（Adaptive Moment Estimation）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-AdaDelta"><span class="nav-number">1.0.5.4.</span> <span class="nav-text">(4) AdaDelta</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E4%BA%8C%E9%98%B6%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95"><span class="nav-number">1.0.6.</span> <span class="nav-text">6. 二阶优化算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%89%9B%E9%A1%BF%E6%B3%95%EF%BC%88Newton%E2%80%99s-Method%EF%BC%89"><span class="nav-number">1.0.6.1.</span> <span class="nav-text">(1) 牛顿法（Newton’s Method）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%8B%9F%E7%89%9B%E9%A1%BF%E6%B3%95%EF%BC%88BFGS-L-BFGS%EF%BC%89"><span class="nav-number">1.0.6.2.</span> <span class="nav-text">(2) 拟牛顿法（BFGS&#x2F;L-BFGS）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93"><span class="nav-number">1.0.7.</span> <span class="nav-text">对比总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%EF%BC%9F"><span class="nav-number">1.0.8.</span> <span class="nav-text">如何选择？</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ayyyy1"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Ayyyy1</p>
+  <div class="site-description" itemprop="description">welcome to my channel</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2025-04 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ayyyy1</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
